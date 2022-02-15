@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -x
+
+# Install i3wm
+sudo apt update
+sudo apt install i3
+
+# Copy useful scripts to $HOME
+cp -r "home/self/." "$HOME/"
+
+# Install Docker, Kubernetes, and Helm
+sudo snap install microk8s --classic
+sudo adduser "$USER" microk8s
+microk8s enable dashboard dns helm3 ingress
+microk8s status --wait | head -n1
